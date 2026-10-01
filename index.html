@@ -11,17 +11,27 @@
   e preencha data-editor-url (link da página do editor) e data-gallery-url (link da página da galeria).
   Deixando vazios, tudo funciona na mesma página.
 
-  As apresentações abrem no editor próprio (sieg-studio-apresentacao.html). No WordPress, troque
-  data-apresentacao-url pelo endereço da página onde esse editor foi colado.
+  data-brandspace-url: página do Brand Space (link "Brand Space" no topo).
+  data-briefing-url: para onde vai o botão "Abrir briefing".
+
+  As apresentações abrem no editor próprio (sieg-studio-apresentacao.html) e o Resumo do All Hands
+  no dele (sieg-studio-allhands.html). No WordPress, troque data-apresentacao-url e data-allhands-url
+  pelos endereços das páginas onde cada editor foi colado.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<div class="sieg-studio" id="sieg-studio" data-editor-url="" data-gallery-url="" data-apresentacao-url="sieg-studio-apresentacao.html">
+<div class="sieg-studio" id="sieg-studio" data-editor-url="" data-gallery-url="" data-apresentacao-url="sieg-studio-apresentacao.html" data-allhands-url="sieg-studio-allhands.html" data-brandspace-url="https://marketing.sieg.com/brandspace/" data-briefing-url="https://marketing.sieg.com/brandspace/#solicitar">
 
   <!-- ============ GALERIA ============ -->
   <section class="ss-gallery" hidden>
+    <nav class="ss-crumbs" aria-label="Você está em">
+      <a class="ss-crumb-link" href="#">Brand Space</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">SIEG Studio</span>
+    </nav>
+    <p class="ss-lead">Crie e use de forma simples. Escolha a marca, encontre o template e edite. Cada um já diz quando usar.</p>
     <div class="ss-tabs" role="tablist" aria-label="Direção de marca"></div>
 
     <h2 class="ss-title"></h2>
@@ -62,9 +72,21 @@
       <div class="ss-grid"></div>
       <div class="ss-empty" hidden>
         <p class="ss-empty-text"></p>
-        <button type="button" class="ss-empty-btn">Limpar busca e filtros</button>
+        <div class="ss-empty-actions">
+          <button type="button" class="ss-empty-btn">Limpar busca e filtros</button>
+          <a class="ss-empty-link ss-briefing-link" href="#">Pedir ao SIEG Media</a>
+        </div>
       </div>
     </div>
+
+    <div class="ss-request">
+      <div>
+        <h3>Não achou? Solicite ao time do SIEG Media</h3>
+        <p>Conte o que você precisa e o time cria a peça com você.</p>
+      </div>
+      <a class="ss-request-btn ss-briefing-link" href="#">Abrir briefing</a>
+    </div>
+    <p class="ss-version">SIEG Studio · uso interno v1.0 · atualizado out/2026</p>
   </section>
 
   <!-- ============ EDITOR ============ -->
@@ -76,6 +98,7 @@
       </a>
       <p class="ss-brandlabel"></p>
       <h2 class="ss-piece-title"></h2>
+      <p class="ss-when"></p>
 
       <div class="ss-fields">
         <label class="ss-field"><span>Título:</span><input type="text" data-field="h1" maxlength="70"></label>
@@ -131,7 +154,7 @@
 <style>
 .sieg-studio{
   --ss-bg:#f2f4f8;
-  --ss-ink:#000;
+  --ss-ink:#040426;
   --ss-ink-2:#3a3f4b;
   --ss-muted:#8a8f99;
   --ss-accent:#005fe9;
@@ -156,6 +179,11 @@
 .sieg-studio .ss-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- Galeria ---------- */
+.sieg-studio .ss-crumbs{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ss-ink-2);margin-bottom:10px}
+.sieg-studio .ss-crumbs a{color:var(--ss-ink-2);text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px;transition:text-decoration-color .15s}
+.sieg-studio .ss-crumbs a:hover{text-decoration-color:currentColor}
+.sieg-studio .ss-crumbs [aria-current]{color:var(--ss-ink);font-weight:600}
+.sieg-studio .ss-lead{font-size:16px;color:var(--ss-ink-2);max-width:60ch;margin-bottom:28px}
 .sieg-studio .ss-tabs{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px}
 .sieg-studio .ss-tab{
   padding:7px 14px;border-radius:999px;font-size:16px;font-weight:400;color:var(--ss-ink);
@@ -221,7 +249,10 @@
 }
 .sieg-studio .ss-card:hover .ss-card-link::before,.sieg-studio .ss-card-link:focus-visible::before{opacity:1}
 .sieg-studio .ss-card-link:focus-visible{outline:3px solid #fff;outline-offset:-6px}
-.sieg-studio .ss-card-meta,.sieg-studio .ss-card-title{position:relative}
+.sieg-studio .ss-card-meta,.sieg-studio .ss-card-bottom{position:relative}
+.sieg-studio .ss-card-bottom{display:flex;flex-direction:column;gap:6px}
+.sieg-studio .ss-card-when{font-size:13px;line-height:1.35;opacity:.88;max-width:32ch;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media (max-width:1180px) and (min-width:821px){.sieg-studio .ss-card-when{display:none}}
 .sieg-studio .ss-card-meta{font-size:13px;opacity:.92}
 .sieg-studio .ss-card-title{font-size:clamp(17px,1.5vw,23px);line-height:1.2;max-width:14ch}
 .sieg-studio .ss-fav{
@@ -242,6 +273,14 @@
 .sieg-studio .ss-empty{padding:48px 0;max-width:520px}
 .sieg-studio .ss-empty-text{font-size:18px;color:var(--ss-ink-2);margin-bottom:16px}
 .sieg-studio .ss-empty-btn{padding:9px 16px;border-radius:999px;background:var(--ss-accent);color:#fff;font-size:15px}
+.sieg-studio .ss-empty-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.sieg-studio .ss-empty-link{font-size:15px;color:var(--ss-accent);text-decoration:underline;text-underline-offset:3px}
+.sieg-studio .ss-request{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;margin-top:48px;padding:28px 32px;border-radius:18px;background:var(--ss-ink);color:#fff}
+.sieg-studio .ss-request h3{margin:0 0 6px;font-size:clamp(20px,1.8vw,26px);font-weight:600;line-height:1.2;color:#fff}
+.sieg-studio .ss-request p{font-size:15px;color:rgba(255,255,255,.75)}
+.sieg-studio .ss-request-btn{flex:none;padding:11px 20px;border-radius:999px;background:#fff;color:var(--ss-ink);font-size:16px;font-weight:600;transition:background-color .15s}
+.sieg-studio .ss-request-btn:hover{background:#e7ebf3}
+.sieg-studio .ss-version{margin-top:20px;font-size:13px;color:var(--ss-muted)}
 
 /* ---------- Editor ---------- */
 .sieg-studio .ss-editor{
@@ -257,7 +296,9 @@
 .sieg-studio .ss-back svg{width:18px;height:18px}
 .sieg-studio .ss-back:hover{color:var(--ss-accent)}
 .sieg-studio .ss-brandlabel{font-size:15px;color:var(--ss-ink)}
-.sieg-studio .ss-piece-title{font-size:clamp(28px,2.6vw,42px);font-weight:400;line-height:1.12;color:var(--ss-accent);margin:6px 0 40px;letter-spacing:-.01em}
+.sieg-studio .ss-piece-title{font-size:clamp(28px,2.6vw,42px);font-weight:400;line-height:1.12;color:var(--ss-accent);margin:6px 0 10px;letter-spacing:-.01em}
+.sieg-studio .ss-when{font-size:14px;color:var(--ss-ink-2);margin-bottom:30px}
+.sieg-studio .ss-when:empty{margin-bottom:20px}
 
 .sieg-studio .ss-fields{display:flex;flex-direction:column;gap:10px;margin-bottom:40px}
 .sieg-studio .ss-field{
@@ -361,61 +402,63 @@
 
   var TEMPLATES = [
     // SIEG Institucional
-    { id: 'inst-apresentacao-modelo-1', pagina: 'apresentacao', marca: 'institucional', titulo: 'Apresentação modelo 1', tipo: 'Digital', formato: '16:9', layout: 0, ativo: true, tags: 'apresentação slide capa reunião',
+    { id: 'inst-apresentacao-modelo-1', quando: 'Reuniões com clientes, parceiros e eventos externos.', pagina: 'apresentacao', marca: 'institucional', titulo: 'Apresentação modelo 1', tipo: 'Digital', formato: '16:9', layout: 0, ativo: true, tags: 'apresentação slide capa reunião',
       textos: { h1: 'Título da apresentação', h2: 'Subtítulo ou área responsável', h3: 'Mês e ano' } },
-    { id: 'inst-atualizacoes-produto', marca: 'institucional', titulo: 'Atualizações de produto', tipo: 'Digital', formato: '16:9', layout: 0, tags: 'novidades lançamento release funcionalidade',
+    { id: 'inst-atualizacoes-produto', quando: 'Anunciar novidades da plataforma para clientes.', marca: 'institucional', titulo: 'Atualizações de produto', tipo: 'Digital', formato: '16:9', layout: 0, tags: 'novidades lançamento release funcionalidade',
       textos: { h1: 'Novidades da plataforma', h2: 'O que mudou neste mês', h3: 'Veja todos os detalhes na central de ajuda.' } },
-    { id: 'inst-post-linkedin', marca: 'institucional', titulo: 'Post para LinkedIn', tipo: 'Digital', formato: '1:1', layout: 3, tags: 'rede social post feed',
+    { id: 'inst-post-linkedin', quando: 'Conteúdo institucional no feed da SIEG.', marca: 'institucional', titulo: 'Post para LinkedIn', tipo: 'Digital', formato: '1:1', layout: 3, tags: 'rede social post feed',
       textos: { h1: 'Tecnologia fiscal para contadores', h2: 'Automatize o que toma seu tempo', h3: 'Conheça as soluções SIEG.' } },
-    { id: 'inst-story', marca: 'institucional', titulo: 'Story institucional', tipo: 'Digital', formato: '9:16', layout: 2, tags: 'instagram story vertical',
+    { id: 'inst-story', quando: 'Avisos rápidos e chamadas nos stories.', marca: 'institucional', titulo: 'Story institucional', tipo: 'Digital', formato: '9:16', layout: 2, tags: 'instagram story vertical',
       textos: { h1: 'Estamos com você no fechamento', h2: 'Conte com a SIEG', h3: 'Arraste para cima e saiba mais.' } },
-    { id: 'inst-capa-apresentacao', marca: 'institucional', titulo: 'Capa de apresentação', tipo: 'Digital', formato: '16:9', layout: 4, tags: 'slide reunião apresentação capa',
+    { id: 'inst-capa-apresentacao', quando: 'Abrir decks que não usam o modelo completo.', marca: 'institucional', titulo: 'Capa de apresentação', tipo: 'Digital', formato: '16:9', layout: 4, tags: 'slide reunião apresentação capa',
       textos: { h1: 'Título da apresentação', h2: 'Área responsável', h3: 'Mês e ano' } },
-    { id: 'inst-comunicado-cliente', marca: 'institucional', titulo: 'Comunicado ao cliente', tipo: 'Digital', formato: '4:5', layout: 1, tags: 'aviso cliente comunicado manutenção',
+    { id: 'inst-comunicado-cliente', quando: 'Avisar clientes sobre manutenção, mudanças e prazos.', marca: 'institucional', titulo: 'Comunicado ao cliente', tipo: 'Digital', formato: '4:5', layout: 1, tags: 'aviso cliente comunicado manutenção',
       textos: { h1: 'Aviso importante', h2: 'Manutenção programada no sábado', h3: 'O sistema ficará indisponível das 8h às 12h.' } },
-    { id: 'inst-webinar', marca: 'institucional', titulo: 'Convite para webinar', tipo: 'Digital', formato: '16:9', layout: 0, tags: 'evento live webinar convite',
+    { id: 'inst-webinar', quando: 'Divulgar lives e webinars abertos ao público.', marca: 'institucional', titulo: 'Convite para webinar', tipo: 'Digital', formato: '16:9', layout: 0, tags: 'evento live webinar convite',
       textos: { h1: 'Webinar: reforma tributária na prática', h2: 'Quinta, 20h, ao vivo', h3: 'Inscrições gratuitas pelo link da bio.' } },
-    { id: 'inst-case', marca: 'institucional', titulo: 'Case de cliente', tipo: 'Digital', formato: '1:1', layout: 2, tags: 'depoimento case sucesso cliente',
+    { id: 'inst-case', quando: 'Mostrar resultados e depoimentos de clientes.', marca: 'institucional', titulo: 'Case de cliente', tipo: 'Digital', formato: '1:1', layout: 2, tags: 'depoimento case sucesso cliente',
       textos: { h1: '“Ganhamos horas no fechamento”', h2: 'Nome do cliente, Escritório', h3: 'Leia o case completo no blog.' } },
-    { id: 'inst-cartaz-evento', marca: 'institucional', titulo: 'Cartaz de evento', tipo: 'Impresso', formato: 'A4 retrato', layout: 1, tags: 'evento feira cartaz impressão',
+    { id: 'inst-cartaz-evento', quando: 'Sinalização impressa em feiras e eventos.', marca: 'institucional', titulo: 'Cartaz de evento', tipo: 'Impresso', formato: 'A4 retrato', layout: 1, tags: 'evento feira cartaz impressão',
       textos: { h1: 'SIEG no evento', h2: 'Visite nosso estande', h3: 'Data, local e horário' } },
 
     // SIEG Academy
-    { id: 'acad-apresentacao-modelo-1', pagina: 'apresentacao', marca: 'academy', titulo: 'Apresentação modelo 1', tipo: 'Digital', formato: '16:9', layout: 0, ativo: true, tags: 'apresentação slide capa aula',
+    { id: 'acad-apresentacao-modelo-1', quando: 'Aulas, trilhas e treinamentos do SIEG Academy.', pagina: 'apresentacao', marca: 'academy', titulo: 'Apresentação modelo 1', tipo: 'Digital', formato: '16:9', layout: 0, ativo: true, tags: 'apresentação slide capa aula',
       textos: { h1: 'Título da apresentação', h2: 'Nome do curso ou módulo', h3: 'Nome do instrutor' } },
-    { id: 'acad-capa-aula', marca: 'academy', titulo: 'Capa de aula', tipo: 'Digital', formato: '16:9', layout: 4, tags: 'aula curso capa módulo',
+    { id: 'acad-capa-aula', quando: 'Abertura de aulas gravadas ou ao vivo.', marca: 'academy', titulo: 'Capa de aula', tipo: 'Digital', formato: '16:9', layout: 4, tags: 'aula curso capa módulo',
       textos: { h1: 'Módulo 1: primeiros passos', h2: 'Aula 01', h3: 'Nome do instrutor' } },
-    { id: 'acad-thumb-video', marca: 'academy', titulo: 'Thumbnail de vídeo', tipo: 'Digital', formato: '16:9', layout: 2, tags: 'youtube vídeo thumbnail miniatura',
+    { id: 'acad-thumb-video', quando: 'Capa de vídeos no YouTube e na plataforma de cursos.', marca: 'academy', titulo: 'Thumbnail de vídeo', tipo: 'Digital', formato: '16:9', layout: 2, tags: 'youtube vídeo thumbnail miniatura',
       textos: { h1: 'Como emitir sua primeira nota', h2: 'Passo a passo em 5 minutos', h3: '' } },
-    { id: 'acad-chamada-curso', marca: 'academy', titulo: 'Chamada para curso', tipo: 'Digital', formato: '1:1', layout: 0, tags: 'curso inscrição divulgação',
+    { id: 'acad-chamada-curso', quando: 'Divulgar cursos com inscrições abertas.', marca: 'academy', titulo: 'Chamada para curso', tipo: 'Digital', formato: '1:1', layout: 0, tags: 'curso inscrição divulgação',
       textos: { h1: 'Novo curso no SIEG Academy', h2: 'Inscrições abertas', h3: 'Vagas limitadas. Garanta a sua.' } },
-    { id: 'acad-story-inscricao', marca: 'academy', titulo: 'Story de inscrição', tipo: 'Digital', formato: '9:16', layout: 3, tags: 'story instagram inscrição vertical',
+    { id: 'acad-story-inscricao', quando: 'Reforçar prazos de inscrição nos stories.', marca: 'academy', titulo: 'Story de inscrição', tipo: 'Digital', formato: '9:16', layout: 3, tags: 'story instagram inscrição vertical',
       textos: { h1: 'Última semana para se inscrever', h2: 'Curso de obrigações acessórias', h3: 'Link nos stories.' } },
-    { id: 'acad-dica-rapida', marca: 'academy', titulo: 'Dica rápida', tipo: 'Digital', formato: '4:5', layout: 1, tags: 'dica conteúdo carrossel feed',
+    { id: 'acad-dica-rapida', quando: 'Conteúdo curto e útil para o feed.', marca: 'academy', titulo: 'Dica rápida', tipo: 'Digital', formato: '4:5', layout: 1, tags: 'dica conteúdo carrossel feed',
       textos: { h1: 'Dica da semana', h2: 'Use filtros salvos para ganhar tempo', h3: 'Salve este post para consultar depois.' } },
-    { id: 'acad-agenda-lives', marca: 'academy', titulo: 'Agenda de lives', tipo: 'Digital', formato: '16:9', layout: 3, tags: 'agenda live calendário programação',
+    { id: 'acad-agenda-lives', quando: 'Calendário mensal de lives.', marca: 'academy', titulo: 'Agenda de lives', tipo: 'Digital', formato: '16:9', layout: 3, tags: 'agenda live calendário programação',
       textos: { h1: 'Agenda de lives do mês', h2: 'Toda terça, às 19h', h3: 'Acompanhe pelo canal do SIEG Academy.' } },
-    { id: 'acad-certificado', marca: 'academy', titulo: 'Certificado', tipo: 'Impresso', formato: 'A4 paisagem', layout: 1, tags: 'certificado conclusão curso impressão',
+    { id: 'acad-certificado', quando: 'Certificar alunos ao concluir um curso.', marca: 'academy', titulo: 'Certificado', tipo: 'Impresso', formato: 'A4 paisagem', layout: 1, tags: 'certificado conclusão curso impressão',
       textos: { h1: 'Certificado de conclusão', h2: 'Nome do aluno', h3: 'Concluiu o curso com carga horária de 8 horas.' } },
 
     // SIEG Endomarketing
-    { id: 'endo-apresentacao-modelo-1', pagina: 'apresentacao', marca: 'endomarketing', titulo: 'Apresentação modelo 1', tipo: 'Digital', formato: '16:9', layout: 0, ativo: true, tags: 'apresentação slide capa interno',
-      textos: { h1: 'Título da apresentação', h2: 'Área responsável', h3: 'Mês e ano' } },
-    { id: 'endo-atualizacoes-produto', marca: 'endomarketing', titulo: 'Atualizações de produto', tipo: 'Digital', formato: '16:9', layout: 0, tags: 'novidades time interno produto',
-      textos: { h1: 'O que o produto lançou', h2: 'Resumo para o time', h3: 'Dúvidas? Chame o time de Produto.' } },
-    { id: 'endo-aniversariantes', marca: 'endomarketing', titulo: 'Aniversariantes do mês', tipo: 'Digital', formato: '16:9', layout: 1, tags: 'aniversário parabéns mês pessoas',
-      textos: { h1: 'Aniversariantes de outubro', h2: 'Parabéns a quem faz a SIEG acontecer', h3: 'Nomes e datas aqui' } },
-    { id: 'endo-boas-vindas', marca: 'endomarketing', titulo: 'Boas-vindas', tipo: 'Digital', formato: '1:1', layout: 1, tags: 'novo colaborador boas-vindas onboarding',
-      textos: { h1: 'Boas-vindas, Nome!', h2: 'Área / Departamento', h3: 'Que bom ter você com a gente.' } },
-    { id: 'endo-comunicado', marca: 'endomarketing', titulo: 'Comunicado interno', tipo: 'Digital', formato: '16:9', layout: 4, tags: 'aviso comunicado interno rh',
-      textos: { h1: 'Comunicado', h2: 'Assunto do comunicado', h3: 'Detalhes em uma frase curta.' } },
-    { id: 'endo-fundo-teams', marca: 'endomarketing', titulo: 'Fundo para Teams', tipo: 'Digital', formato: '16:9', layout: 2, tags: 'teams fundo reunião videochamada',
+    { id: 'endo-resumo-allhands', quando: 'Divulgar a pauta do All Hands com horários e palestrantes.', pagina: 'allhands', marca: 'endomarketing', titulo: 'Resumo do All Hands', tipo: 'Digital', formato: 'Vertical', layout: 0, ativo: true, tags: 'all hands allhands pauta agenda reunião geral palestrantes',
       textos: { h1: '', h2: '', h3: '' } },
-    { id: 'endo-campanha', marca: 'endomarketing', titulo: 'Campanha interna', tipo: 'Digital', formato: '9:16', layout: 3, tags: 'campanha engajamento story',
+    { id: 'endo-apresentacao-modelo-1', quando: 'Reuniões internas, comunicados e campanhas para o time.', pagina: 'apresentacao', marca: 'endomarketing', titulo: 'Apresentação modelo 1', tipo: 'Digital', formato: '16:9', layout: 0, ativo: true, tags: 'apresentação slide capa interno',
+      textos: { h1: 'Título da apresentação', h2: 'Área responsável', h3: 'Mês e ano' } },
+    { id: 'endo-atualizacoes-produto', quando: 'Contar ao time o que o produto lançou.', marca: 'endomarketing', titulo: 'Atualizações de produto', tipo: 'Digital', formato: '16:9', layout: 0, tags: 'novidades time interno produto',
+      textos: { h1: 'O que o produto lançou', h2: 'Resumo para o time', h3: 'Dúvidas? Chame o time de Produto.' } },
+    { id: 'endo-aniversariantes', quando: 'Celebrar os aniversariantes do mês.', marca: 'endomarketing', titulo: 'Aniversariantes do mês', tipo: 'Digital', formato: '16:9', layout: 1, tags: 'aniversário parabéns mês pessoas',
+      textos: { h1: 'Aniversariantes de outubro', h2: 'Parabéns a quem faz a SIEG acontecer', h3: 'Nomes e datas aqui' } },
+    { id: 'endo-boas-vindas', quando: 'Apresentar quem acabou de chegar.', marca: 'endomarketing', titulo: 'Boas-vindas', tipo: 'Digital', formato: '1:1', layout: 1, tags: 'novo colaborador boas-vindas onboarding',
+      textos: { h1: 'Boas-vindas, Nome!', h2: 'Área / Departamento', h3: 'Que bom ter você com a gente.' } },
+    { id: 'endo-comunicado', quando: 'Avisos oficiais para todo o time.', marca: 'endomarketing', titulo: 'Comunicado interno', tipo: 'Digital', formato: '16:9', layout: 4, tags: 'aviso comunicado interno rh',
+      textos: { h1: 'Comunicado', h2: 'Assunto do comunicado', h3: 'Detalhes em uma frase curta.' } },
+    { id: 'endo-fundo-teams', quando: 'Fundo de tela para reuniões em vídeo.', marca: 'endomarketing', titulo: 'Fundo para Teams', tipo: 'Digital', formato: '16:9', layout: 2, tags: 'teams fundo reunião videochamada',
+      textos: { h1: '', h2: '', h3: '' } },
+    { id: 'endo-campanha', quando: 'Engajar o time em campanhas e ações.', marca: 'endomarketing', titulo: 'Campanha interna', tipo: 'Digital', formato: '9:16', layout: 3, tags: 'campanha engajamento story',
       textos: { h1: 'Nome da campanha', h2: 'Participe até sexta', h3: 'Mais informações com Gente e Cultura.' } },
-    { id: 'endo-reconhecimento', marca: 'endomarketing', titulo: 'Reconhecimento', tipo: 'Digital', formato: '4:5', layout: 0, tags: 'destaque reconhecimento parabéns',
+    { id: 'endo-reconhecimento', quando: 'Destacar pessoas e conquistas.', marca: 'endomarketing', titulo: 'Reconhecimento', tipo: 'Digital', formato: '4:5', layout: 0, tags: 'destaque reconhecimento parabéns',
       textos: { h1: 'Destaque do mês', h2: 'Nome da pessoa', h3: 'Obrigado pela dedicação.' } },
-    { id: 'endo-mural', marca: 'endomarketing', titulo: 'Cartaz para mural', tipo: 'Impresso', formato: 'A4 retrato', layout: 4, tags: 'mural cartaz escritório impressão',
+    { id: 'endo-mural', quando: 'Comunicação impressa no escritório.', marca: 'endomarketing', titulo: 'Cartaz para mural', tipo: 'Impresso', formato: 'A4 retrato', layout: 4, tags: 'mural cartaz escritório impressão',
       textos: { h1: 'Título do cartaz', h2: 'Chamada principal', h3: 'Informação complementar' } }
   ];
 
@@ -445,6 +488,7 @@
       var ap = root.dataset.apresentacaoUrl || 'sieg-studio-apresentacao.html';
       return ap + (ap.indexOf('?') >= 0 ? '&' : '?') + 'marca=' + encodeURIComponent(t.marca);
     }
+    if (t.pagina === 'allhands') return root.dataset.allhandsUrl || 'sieg-studio-allhands.html';
     return (root.dataset.editorUrl || base) + '?template=' + encodeURIComponent(t.id);
   }
   function urlGaleria(marcaId) { return (root.dataset.galleryUrl || base) + (marcaId ? '?marca=' + encodeURIComponent(marcaId) : ''); }
@@ -466,6 +510,8 @@
     };
     var sec = $('.ss-gallery');
     sec.hidden = false;
+    $('.ss-crumb-link').href = root.dataset.brandspaceUrl || 'https://marketing.sieg.com/brandspace/';
+    $$('.ss-briefing-link').forEach(function (a) { a.href = root.dataset.briefingUrl || 'https://marketing.sieg.com/brandspace/#solicitar'; });
 
     var tabs = $('.ss-tabs');
     tabs.innerHTML = MARCAS.map(function (m) {
@@ -574,7 +620,7 @@
       }
       if (st.modo !== 'recentes') lista = lista.filter(function (t) { return t.ativo; }).concat(lista.filter(function (t) { return !t.ativo; }));
       var q = norm(st.q.trim());
-      if (q) lista = lista.filter(function (t) { return norm([t.titulo, t.tags, t.tipo, t.formato].join(' ')).indexOf(q) >= 0; });
+      if (q) lista = lista.filter(function (t) { return norm([t.titulo, t.quando, t.tags, t.tipo, t.formato].join(' ')).indexOf(q) >= 0; });
       if (st.tipo !== 'Todos') lista = lista.filter(function (t) { return t.tipo === st.tipo; });
       if (st.formato !== 'Todos') lista = lista.filter(function (t) { return t.formato === st.formato; });
 
@@ -593,14 +639,16 @@
           return '<article class="ss-card is-soon" style="--c1:' + m.cor + ';--c2:' + mistura(m.cor, '#ffffff', .3) + ';' + bg + '">' +
             '<div class="ss-card-link" aria-disabled="true">' +
               '<span class="ss-card-meta">' + esc(t.tipo) + ' • ' + esc(t.formato) + '</span>' +
-              '<span class="ss-card-title">' + esc(t.titulo) + '</span>' +
+              '<span class="ss-card-bottom"><span class="ss-card-title">' + esc(t.titulo) + '</span>' +
+              (t.quando ? '<span class="ss-card-when">' + esc(t.quando) + '</span>' : '') + '</span>' +
             '</div>' +
             '<span class="ss-soon">Em breve</span></article>';
         }
         return '<article class="ss-card" style="--c1:' + m.cor + ';--c2:' + mistura(m.cor, '#ffffff', .3) + ';' + bg + '">' +
           '<a class="ss-card-link" href="' + esc(urlEditor(t)) + '">' +
             '<span class="ss-card-meta">' + esc(t.tipo) + ' • ' + esc(t.formato) + '</span>' +
-            '<span class="ss-card-title">' + esc(t.titulo) + '</span>' +
+            '<span class="ss-card-bottom"><span class="ss-card-title">' + esc(t.titulo) + '</span>' +
+            (t.quando ? '<span class="ss-card-when">' + esc(t.quando) + '</span>' : '') + '</span>' +
           '</a>' +
           '<button type="button" class="ss-fav" data-id="' + t.id + '" aria-pressed="' + fav + '" aria-label="Favoritar ' + esc(t.titulo) + '">' +
             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.3s-8-4.7-8-10.6A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8 2.7c0 5.9-8 10.6-8 10.6Z"/></svg>' +
@@ -648,6 +696,7 @@
     $('.ss-back').href = urlGaleria(t.marca);
     $('.ss-brandlabel').textContent = m.nome;
     $('.ss-piece-title').textContent = t.titulo;
+    $('.ss-when').textContent = t.quando ? 'Quando usar: ' + t.quando : '';
     try { document.title = t.titulo + ' | SIEG Studio'; } catch (e) {}
 
     var st = { h1: t.textos.h1 || '', h2: t.textos.h2 || '', h3: t.textos.h3 || '', img: null, layout: t.layout || 0 };
